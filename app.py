@@ -51,7 +51,7 @@ candidate02 = dict(
 def ftext(candidate, x,y,z, per):
     txtnormal = ''
     if per != None:
-        txtnormal = '<b>Avance al: </b>{per}<br>'.format(per=str('{:.2%}'.format(per)))
+        txtnormal = '<b>Avance al: </b>{per}<br>'.format(per=str('{:.3%}'.format(per)))
     txtnormal = txtnormal + '''<b>{candidate}: </b>{x}
             <br><b>Total Votos: </b>{y}'''.format(candidate=candidate, x=str(x*100)+"%",y=f'{y:,}')
     if(z >= 0):
@@ -78,13 +78,13 @@ def cardCandidate(candidate):
 def progressBar(cp, kc, cc):
     return html.Div([
         html.Div("Elecciones Perú", className="col-12 text-center"),
-        html.Div("Al "+'{:.2%}'.format(cp), className="col-12 text-center"),
+        html.Div("Al "+'{:.3%}'.format(cp), className="col-12 text-center"),
         html.Span("▼", className="col-12 text-center"),
         html.Div(
             html.Div([
                 # html.Span("|", className="", style={'position': 'absolute', 'right':0, 'left':0, 'top': 15, 'font-size':'40px', 'font-weight': 'lighter'}),
-                html.Div('{:.2%}'.format(cc),className="progress-bar", style={'width': '{:.2%}'.format(cc)}),
-                html.Div('{:.2%}'.format(kc),className="progress-bar bg-warning", style={'width': '{:.2%}'.format(kc)})
+                html.Div('{:.3%}'.format(cc),className="progress-bar", style={'width': '{:.2%}'.format(cc)}),
+                html.Div('{:.3%}'.format(kc),className="progress-bar bg-warning", style={'width': '{:.2%}'.format(kc)})
             ], className='progress text-center', style={'height': '40px'}
         ), className="col-12"),
     ], className="row g-0")
@@ -94,7 +94,7 @@ def serve_layout():
 
     df_Fujimori = df[df['Partido'] == 'FUERZA POPULAR']
     df_Castillo = df[df['Partido'] == 'PARTIDO POLITICO NACIONAL PERU LIBRE']
-    df_avance = df['Avance'].unique()
+    df_avance = df[df['Partido'] == 'FUERZA POPULAR']['Avance']
 
     x_data = [x/100 for x in df_avance]
 
@@ -170,7 +170,7 @@ def serve_layout():
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='rgba(238,238,238,1)', range=[init_percent,1])
     fig.update_yaxes(visible=False, showgrid=False, gridwidth=1, gridcolor='rgba(238,238,238,1)')
     fig.for_each_trace(lambda t: fig.add_annotation(
-        x=t.x[-1], y=t.y[-1], text=" "+'{:.2%}'.format(t.y[-1]),
+        x=t.x[-1], y=t.y[-1], text=" "+'{:.3%}'.format(t.y[-1]),
         font_color=t.line.color,
         ax=10, ay=0, xanchor="left", showarrow=True
     ))
