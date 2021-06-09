@@ -53,7 +53,7 @@ def ftext(candidate, x,y,z, per):
     if per != None:
         txtnormal = '<b>Avance al: </b>{per}<br>'.format(per=str('{:.3%}'.format(per)))
     txtnormal = txtnormal + '''<b>{candidate}: </b>{x}
-            <br><b>Total Votos: </b>{y}'''.format(candidate=candidate, x=str(x*100)+"%",y=f'{y:,}')
+            <br><b>Total Votos: </b>{y}'''.format(candidate=candidate, x='{:.3%}'.format(x),y=f'{y:,}')
     if(z >= 0):
         txtnormal = txtnormal + '<br><b>Diferencia de Votos: </b>{z}'.format(z=f'{z:,}')
     return txtnormal
